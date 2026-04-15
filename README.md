@@ -1,3 +1,7 @@
+
+
+
+
 # pygame-fmod
 
 This project is a demonstration on implementing fmod into pygame
@@ -7,7 +11,7 @@ This project is a demonstration on implementing fmod into pygame
 ### Volume Control
 
 <p align="center" width="100%">
-<video src="/demo-videos/pygame-fmod.mp4" width="80%" controls></video>
+<video src="https://github.com/user-attachments/assets/53808d6c-be88-47b4-851b-a3824d1b63f1" width="80%" controls></video>
 </p>
 ## Resources Used
 

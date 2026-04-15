@@ -114,6 +114,14 @@ FMOD_System_Update = _fmod.FMOD_System_Update
 FMOD_System_Update.restype = FMOD_RESULT
 FMOD_System_Update.argtypes = [FMOD_SYSTEM_PTR]
 
+# FMOD_RESULT F_API FMOD_ChannelGroup_SetVolume(
+#   FMOD_CHANNELGROUP *channelgroup,
+#   float volume
+# );
+FMOD_ChannelGroup_SetVolume = _fmod.FMOD_ChannelGroup_SetVolume
+FMOD_ChannelGroup_SetVolume.restype = FMOD_RESULT
+FMOD_ChannelGroup_SetVolume.argtypes = [FMOD_CHANNELGROUP_PTR, ctypes.c_float]
+
 
 # FMOD_RESULT F_API FMOD_System_GetMasterChannelGroup (
 #   FMOD_SYSTEM *system,
@@ -123,5 +131,5 @@ FMOD_SYSTEM_GetMasterChannelGroup = _fmod.FMOD_System_GetMasterChannelGroup
 FMOD_SYSTEM_GetMasterChannelGroup.restype = FMOD_RESULT
 FMOD_SYSTEM_GetMasterChannelGroup.argtypes = [
     FMOD_SYSTEM_PTR,
-    ctypes.POINTER(FMOD_CHANNELGROUP),
+    ctypes.POINTER(FMOD_CHANNELGROUP_PTR),
 ]

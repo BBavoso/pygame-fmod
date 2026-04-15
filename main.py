@@ -1,4 +1,5 @@
 import pygame
+import math
 from fmod_bindings import *
 
 # pygame setup
@@ -24,8 +25,24 @@ FMOD_System_CreateSound(
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
+# - Slider -
+
+slider = pygame.Rect(200, 200, 200, 25)
+slider_handle = pygame.Rect(200, 198, 25, 29)
+
+# coefficients to fit the formula a * e ^ (x * b)
+# where x is the input percent from 0 - 1
+slider_dynamic_range_db = 40
+slider_power = pow(10, slider_dynamic_range_db / 20)
+slider_a = 1 / slider_power
+slider_b = math.log(slider_power)
 
 while running:
+    screen.fill("purple")
+
+    mouse_held = pygame.mouse.get_pressed()
+    mouse_pos = pygame.mouse.get_pos()
+
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
@@ -37,13 +54,6 @@ while running:
                 fmod_system, glitter_sound, None, False, ctypes.byref(channel)
             )
 
-            pass
-
-    # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
-
-    pygame.draw.circle(screen, "red", player_pos, 40)
-
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
         player_pos.y -= 300 * dt
@@ -53,6 +63,29 @@ while running:
         player_pos.x -= 300 * dt
     if keys[pygame.K_d]:
         player_pos.x += 300 * dt
+
+    pygame.draw.circle(screen, "red", player_pos, 40)
+
+    if mouse_held[0] and slider_handle.collidepoint(mouse_pos):
+        slider_handle.centerx = pygame.math.clamp(
+            mouse_pos[0], slider.left, slider.right
+        )
+
+    slider_normalized = (slider_handle.centerx - slider.left) / slider.width
+
+    fmod_master_channel_group = FMOD_CHANNELGROUP_PTR()
+    getmaster_result = FMOD_SYSTEM_GetMasterChannelGroup(
+        fmod_system, ctypes.byref(fmod_master_channel_group)
+    )
+    if slider_normalized == 0:
+        slider_adjusted_volume = 0
+    else:
+        slider_adjusted_volume = slider_a * math.exp(slider_normalized * slider_b)
+
+    FMOD_ChannelGroup_SetVolume(fmod_master_channel_group, slider_adjusted_volume)
+
+    pygame.draw.rect(screen, "darkgrey", slider)
+    pygame.draw.rect(screen, "mediumpurple", slider_handle)
 
     # flip() the display to put your work on screen
     pygame.display.flip()

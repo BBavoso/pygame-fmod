@@ -6,11 +6,9 @@ This project is a demonstration on implementing fmod into pygame
 
 ### Volume Control
 
-<video controls>
-    <source src="/demo-videos/pygame-fmod.webm" type="video/webm" />
-    <source src="/demo-videos/pygame-fmod.mp4" type="video/mp4" />
-</video>
-
+<p align="center" width="100%">
+<video src="/demo-videos/pygame-fmod.mp4" width="80%" controls></video>
+</p>
 ## Resources Used
 
 - Game Audio Programming Principles and Practices - Guy Somberg

@@ -1,18 +1,14 @@
-
-
-
-
 # pygame-fmod
 
 This project is a demonstration on implementing fmod into pygame
 
 ## Features
 
-### Volume Control
+- basic bindings for both fmod core and fmod studio using ctypes
+- playing sounds using pygame inputss
+- volume control with a slider
+- live update with fmod studio
 
-<p align="center" width="100%">
-<video src="https://github.com/user-attachments/assets/53808d6c-be88-47b4-851b-a3824d1b63f1" width="80%" controls></video>
-</p>
 ## Resources Used
 
 - Game Audio Programming Principles and Practices - Guy Somberg

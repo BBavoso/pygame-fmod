@@ -39,6 +39,9 @@ FMOD_STUDIO_EVENTDESCRIPTION_PTR = ctypes.POINTER(FMOD_STUDIO_EVENTDESCRIPTION)
 class FMOD_STUDIO_EVENTINSTANCE(ctypes.Structure): pass
 FMOD_STUDIO_EVENTINSTANCE_PTR = ctypes.POINTER(FMOD_STUDIO_EVENTINSTANCE)
 
+class FMOD_STUDIO_BUS(ctypes.Structure): pass
+FMOD_STUDIO_BUS_PTR = ctypes.POINTER(FMOD_STUDIO_BUS)
+
 # fmt: on
 
 # --- fmod studio functions ---
@@ -162,3 +165,28 @@ FMOD_Studio_EventInstance_Stop.argtypes = [
 FMOD_Studio_EventInstance_Release = _fmod.FMOD_Studio_EventInstance_Release
 FMOD_Studio_EventInstance_Release.restype = FMOD_RESULT
 FMOD_Studio_EventInstance_Release.argtypes = [FMOD_STUDIO_EVENTINSTANCE_PTR]
+
+
+# - bus -
+
+
+# FMOD_RESULT F_API FMOD_Studio_System_GetBus(
+#   FMOD_STUDIO_SYSTEM *system,
+#   const char *pathOrID,
+#   FMOD_STUDIO_BUS **bus
+# );
+FMOD_Studio_System_GetBus = _fmod.FMOD_Studio_System_GetBus
+FMOD_Studio_System_GetBus.restype = FMOD_RESULT
+FMOD_Studio_System_GetBus.argtypes = [
+    FMOD_STUDIO_SYSTEM_PTR,
+    ctypes.c_char_p,
+    ctypes.POINTER(FMOD_STUDIO_BUS_PTR),
+]
+
+# FMOD_RESULT F_API FMOD_Studio_Bus_SetVolume(
+#   FMOD_STUDIO_BUS *bus,
+#   float volume
+# );
+FMOD_Studio_Bus_SetVolume = _fmod.FMOD_Studio_Bus_SetVolume
+FMOD_Studio_Bus_SetVolume.restype = FMOD_RESULT
+FMOD_Studio_Bus_SetVolume.argtypes = [FMOD_STUDIO_BUS_PTR, ctypes.c_float]

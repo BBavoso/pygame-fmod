@@ -21,3 +21,7 @@ libs/
 
 # Sound files
 sounds/
+
+# ignore fmod project and files
+fmod-project/
+fmod-banks/

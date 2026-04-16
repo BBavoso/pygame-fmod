@@ -2,6 +2,7 @@ import pygame
 import math
 from fmod_studio_bindings import *
 from fmod_bindings import FMOD_INIT_NORMAL
+from render_3d import Model
 
 # pygame setup
 pygame.init()
@@ -34,11 +35,9 @@ FMOD_Studio_System_LoadBankFile(
     ctypes.byref(master_strings_bank),
 )
 
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-
 # - Slider -
 
-slider = pygame.Rect(200, 200, 200, 25)
+slider = pygame.Rect(200, 100, 200, 25)
 slider.centerx = screen.get_width() / 2
 slider_handle = pygame.Rect(0, 0, 25, 29)
 slider_handle.center = (slider.right, slider.centery)
@@ -49,6 +48,10 @@ slider_dynamic_range_db = 40
 slider_power = pow(10, slider_dynamic_range_db / 20)
 slider_a = 1 / slider_power
 slider_b = math.log(slider_power)
+
+# Model
+
+model_3d = Model("models/Cube.obj", pygame.Vector3(0, 0, 3))
 
 while running:
     screen.fill("purple")
@@ -76,15 +79,27 @@ while running:
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
-        player_pos.y -= 300 * dt
+        model_3d.position.z += 10 * dt
     if keys[pygame.K_s]:
-        player_pos.y += 300 * dt
-    if keys[pygame.K_a]:
-        player_pos.x -= 300 * dt
+        model_3d.position.z -= 10 * dt
     if keys[pygame.K_d]:
-        player_pos.x += 300 * dt
+        model_3d.position.x += 10 * dt
+    if keys[pygame.K_a]:
+        model_3d.position.x -= 10 * dt
+    if keys[pygame.K_e]:
+        model_3d.position.y += 10 * dt
+    if keys[pygame.K_q]:
+        model_3d.position.y -= 10 * dt
+    if keys[pygame.K_RIGHT]:
+        model_3d.rotate_xz(math.pi * dt)
+    if keys[pygame.K_LEFT]:
+        model_3d.rotate_xz(-math.pi * dt)
+    if keys[pygame.K_UP]:
+        model_3d.rotate_yz(math.pi * dt)
+    if keys[pygame.K_DOWN]:
+        model_3d.rotate_yz(-math.pi * dt)
 
-    # pygame.draw.circle(screen, "red", player_pos, 40)
+    model_3d.draw_wireframe(screen)
 
     if mouse_held[0] and slider_handle.collidepoint(mouse_pos):
         slider_handle.centerx = pygame.math.clamp(
@@ -105,7 +120,6 @@ while running:
     pygame.draw.rect(screen, "darkgrey", slider)
     pygame.draw.rect(screen, "mediumpurple", slider_handle)
 
-    # flip() the display to put your work on screen
     pygame.display.flip()
 
     # limits FPS to 60

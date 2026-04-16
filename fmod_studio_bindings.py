@@ -1,5 +1,10 @@
 import ctypes
-from fmod_bindings import FMOD_RESULT, FMOD_INITFLAGS
+from fmod_bindings import (
+    FMOD_RESULT,
+    FMOD_INITFLAGS,
+    FMOD_VECTOR_PTR,
+    FMOD_3D_ATTRIBUTES_PTR,
+)
 
 
 # Import FMOD dynamic library
@@ -126,6 +131,33 @@ FMOD_Studio_System_Update.restype = FMOD_RESULT
 FMOD_Studio_System_Update.argtypes = [FMOD_STUDIO_SYSTEM_PTR]
 
 
+# FMOD_RESULT F_API FMOD_Studio_System_SetNumListeners(
+#    FMOD_STUDIO_SYSTEM *system,
+#    int numlisteners
+# );
+FMOD_Studio_System_SetNumListeners = _fmod.FMOD_Studio_System_SetNumListeners
+FMOD_Studio_System_SetNumListeners.restype = FMOD_RESULT
+FMOD_Studio_System_SetNumListeners.argtypes = [FMOD_STUDIO_SYSTEM_PTR, ctypes.c_int]
+
+
+# FMOD_RESULT F_API FMOD_Studio_System_SetListenerAttributes(
+#    FMOD_STUDIO_SYSTEM *system,
+#    int index,
+#    const FMOD_3D_ATTRIBUTES *attributes,
+#    const FMOD_VECTOR *attenuationposition
+# );
+FMOD_Studio_System_SetListenerAttributes = (
+    _fmod.FMOD_Studio_System_SetListenerAttributes
+)
+FMOD_Studio_System_SetListenerAttributes.restype = FMOD_RESULT
+FMOD_Studio_System_SetListenerAttributes.argtypes = [
+    FMOD_STUDIO_SYSTEM_PTR,
+    ctypes.c_int,
+    FMOD_3D_ATTRIBUTES_PTR,
+    FMOD_VECTOR_PTR,
+]
+
+
 # - event description -
 
 # FMOD_RESULT F_API FMOD_Studio_EventDescription_CreateInstance(
@@ -165,6 +197,20 @@ FMOD_Studio_EventInstance_Stop.argtypes = [
 FMOD_Studio_EventInstance_Release = _fmod.FMOD_Studio_EventInstance_Release
 FMOD_Studio_EventInstance_Release.restype = FMOD_RESULT
 FMOD_Studio_EventInstance_Release.argtypes = [FMOD_STUDIO_EVENTINSTANCE_PTR]
+
+
+# FMOD_RESULT F_API FMOD_Studio_EventInstance_Set3DAttributes(
+#   FMOD_STUDIO_EVENTINSTANCE *eventinstance,
+#   FMOD_3D_ATTRIBUTES *attributes
+# );
+FMOD_Studio_EventInstance_Set3DAttributes = (
+    _fmod.FMOD_Studio_EventInstance_Set3DAttributes
+)
+FMOD_Studio_EventInstance_Set3DAttributes.restype = FMOD_RESULT
+FMOD_Studio_EventInstance_Set3DAttributes.argtypes = [
+    FMOD_STUDIO_EVENTINSTANCE_PTR,
+    FMOD_3D_ATTRIBUTES_PTR,
+]
 
 
 # - bus -

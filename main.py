@@ -1,7 +1,7 @@
 import pygame
 import math
 from fmod_studio_bindings import *
-from fmod_bindings import FMOD_INIT_NORMAL
+from fmod_bindings import FMOD_INIT_NORMAL, FMOD_3D_ATTRIBUTES, FMOD_VECTOR
 from render_3d import Model
 
 # pygame setup
@@ -33,6 +33,12 @@ FMOD_Studio_System_LoadBankFile(
     b"fmod-banks/Desktop/Master.strings.bank",
     FMOD_STUDIO_LOAD_BANK_NORMAL,
     ctypes.byref(master_strings_bank),
+)
+
+FMOD_Studio_System_SetNumListeners(fmod_studio_system, 1)
+
+FMOD_Studio_System_SetListenerAttributes(
+    fmod_studio_system, 0, None, FMOD_VECTOR(0, 0, 0)
 )
 
 # - Slider -
@@ -73,6 +79,18 @@ while running:
             glitter_event_instance = FMOD_STUDIO_EVENTINSTANCE_PTR()
             FMOD_Studio_EventDescription_CreateInstance(
                 glitter_event, ctypes.byref(glitter_event_instance)
+            )
+
+            attibutes_3d = FMOD_3D_ATTRIBUTES(
+                FMOD_VECTOR(
+                    model_3d.position.x, model_3d.position.y, model_3d.position.z
+                ),
+                FMOD_VECTOR(0, 0, 0),
+                FMOD_VECTOR(0, 0, -1),
+                FMOD_VECTOR(0, 1, 0),
+            )
+            FMOD_Studio_EventInstance_Set3DAttributes(
+                glitter_event_instance, ctypes.byref(attibutes_3d)
             )
             FMOD_Studio_EventInstance_Start(glitter_event_instance)
             FMOD_Studio_EventInstance_Release(glitter_event_instance)

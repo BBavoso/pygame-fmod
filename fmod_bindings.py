@@ -39,6 +39,30 @@ FMOD_CHANNEL_PTR = ctypes.POINTER(FMOD_CHANNEL)
 
 # fmt: on
 
+
+class FMOD_VECTOR(ctypes.Structure):
+    _fields_ = [
+        ("x", ctypes.c_float),
+        ("y", ctypes.c_float),
+        ("z", ctypes.c_float),
+    ]
+
+
+FMOD_VECTOR_PTR = ctypes.POINTER(FMOD_VECTOR)
+
+
+class FMOD_3D_ATTRIBUTES(ctypes.Structure):
+    _fields_ = [
+        ("position", FMOD_VECTOR),
+        ("velocity", FMOD_VECTOR),
+        ("forward", FMOD_VECTOR),
+        ("up", FMOD_VECTOR),
+    ]
+
+
+FMOD_3D_ATTRIBUTES_PTR = ctypes.POINTER(FMOD_3D_ATTRIBUTES)
+
+
 # --- fmod functions ---
 
 

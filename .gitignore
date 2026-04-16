@@ -25,3 +25,6 @@ sounds/
 # ignore fmod project and files
 fmod-project/
 fmod-banks/
+
+# ignore models
+models/

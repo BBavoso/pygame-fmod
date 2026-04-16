@@ -9,6 +9,9 @@ This project is a demonstration on implementing fmod into pygame
 - volume control with a slider
 - live update with fmod studio
 
+<video src="https://github.com/user-attachments/assets/f15ecf26-6437-44bc-a654-6b106e7e7e43
+" width="40%" controls></video>
+
 ## Resources Used
 
 - Game Audio Programming Principles and Practices - Guy Somberg

@@ -18,7 +18,7 @@ This project is a demonstration on implementing fmod into pygame. The project in
 ### External Libraries
 
 In order to run the project you must have the fmod programmer's api downloaded.
-The download can be found [HERE](https://www.fmod.com/download#fmodengine) under the `FMOD Engine` tab.
+The download can be found [HERE](https://www.fmod.com/download#fmodengine) under the `FMOD Engine` tab (you will need to sign in to access the fmod downloads).
 The project is setup to place the entire `FMOD Programmers API Mac` inside a folder called `libs`.
 
 If you do this right the library files should be located at (mac example):
